@@ -8,9 +8,8 @@ export default async function User() {
 
 
   return (
-    <div className='mt-6'>
+    <div className='mt-6 container'>
       <DataTable columns={columns} data={allUsers} />
-      {/* <Table dataList={allUsers} dataKeyList={userKeyList} /> */}
     </div>
   );
 }

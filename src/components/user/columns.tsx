@@ -2,8 +2,10 @@
 
 import { User } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, Copy, Edit, Trash, ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,8 +17,37 @@ import {
 
 export const columns: ColumnDef<User>[] = [
   {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
     accessorKey: 'id',
-    header: 'Id'
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Id
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: 'name',
@@ -39,15 +70,26 @@ export const columns: ColumnDef<User>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel className='opacity-30'>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.id.toString())}
+              className='flex gap-2 cursor-pointer'
             >
-              Copy payment ID
+              <Copy className='w-4 h-4 text-blue-600/80' />Copy ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => { }}
+              className='flex gap-2 cursor-pointer'
+            >
+              <Edit className='w-4 h-4 text-orange-600/80' />Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => { }}
+              className="flex gap-2 cursor-pointer"
+            >
+              <Trash className='w-4 h-4 text-red-600/80' />Remove
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
