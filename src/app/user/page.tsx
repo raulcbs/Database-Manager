@@ -1,15 +1,7 @@
-import { Table } from "@/components/Table";
-import { columns } from "@/components/user/columns";
-import { DataTable } from "@/components/user/data-table";
-import { getUserList } from "@/utils";
-
-export default async function User() {
-  const { allUsers, userKeyList } = await getUserList()
-
-
+export default function PageUser() {
   return (
-    <div className='mt-6 container'>
-      <DataTable columns={columns} data={allUsers} />
-    </div>
-  );
+    <>
+      <h1 className='font-bold text-2xl text-red-700'>Hola estoy es la pagina User</h1>
+    </>
+  )
 }

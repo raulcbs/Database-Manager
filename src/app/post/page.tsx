@@ -1,12 +1,7 @@
-import { Table } from "@/components/Table"
-import { getPostList } from "@/utils"
-
-export default async function Post() {
-  const { allPost, postKeyList } = await getPostList()
-
+export default function PagePost() {
   return (
-    <div className='mt-6'>
-      <Table dataList={allPost} dataKeyList={postKeyList} />
-    </div>
+    <>
+      <h1 className='font-bold text-2xl text-blue-700'>Hola estoy es la pagina Post</h1>
+    </>
   )
 }
